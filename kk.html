@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>白云jnd28预测系统@zfyy6</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
+            padding: 0;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 10px;
+            background: #000;
+        }
+        
+        /* 顶部信息栏 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 15px;
+        }
+        
+        .date {
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .income {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background: #333;
+            padding: 5px 15px;
+            border-radius: 4px;
+        }
+        
+        /* 当前开奖信息 */
+        .current-result {
+            background: #111;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+        }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .period {
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .result-time {
+            color: #aaa;
+            font-size: 13px;
+        }
+        
+        .numbers {
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            color: #fff;
+            margin: 15px 0;
+            letter-spacing: 2px;
+        }
+        
+        .result-tags {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .tag {
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            background: #333;
+            color: #fff;
+        }
+        
+        .tag.small {
+            background: #555;
+        }
+        
+        .tag.double {
+            background: #777;
+        }
+        
+        .next-time {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            color: #aaa;
+            font-size: 13px;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+        }
+        
+        /* 下一期预测 */
+        .next-prediction {
+            background: #111;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+        }
+        
+        .prediction-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .prediction-title {
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .countdown {
+            color: #aaa;
+            font-size: 13px;
+        }
+        
+        .prediction-content {
+            text-align: center;
+            padding: 15px;
+            background: #222;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .prediction-period {
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .prediction-combination {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            margin: 10px 0;
+        }
+        
+        .special-code {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            margin-top: 10px;
+        }
+        
+        /* 预测结果记录 */
+        .record-container {
+            background: #111;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+        }
+        
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .record-title {
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .accuracy {
+            color: #fff;
+            font-weight: bold;
+            background: #333;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .record-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .record-table th {
+            text-align: center;
+            padding: 12px 8px;
+            font-weight: bold;
+            color: #fff;
+            background: #222;
+            border-bottom: 1px solid #333;
+        }
+        
+        .record-table td {
+            text-align: center;
+            padding: 12px 8px;
+            border-bottom: 1px solid #333;
+            color: #fff;
+        }
+        
+        .record-table tr:nth-child(even) {
+            background: #1a1a1a;
+        }
+        
+        .record-table tr:hover {
+            background: #222;
+        }
+        
+        .period-cell {
+            color: #fff;
+            font-weight: bold;
+        }
+        
+        .time-cell {
+            color: #aaa;
+        }
+        
+        .result-cell {
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .prediction-cell {
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .status-cell {
+            font-weight: bold;
+        }
+        
+        .status-cell.correct {
+            color: #fff;
+        }
+        
+        .status-cell.wrong {
+            color: #aaa;
+        }
+        
+        /* 加载状态 */
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: #aaa;
+        }
+        
+        .loading-spinner {
+            border: 3px solid #333;
+            border-top: 3px solid #fff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 底部信息 */
+        .footer {
+            text-align: center;
+            padding: 15px;
+            color: #666;
+            font-size: 12px;
+            border-top: 1px solid #333;
+            margin-top: 20px;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 8px;
+            }
+            
+            .numbers {
+                font-size: 22px;
+            }
+            
+            .prediction-combination {
+                font-size: 20px;
+            }
+            
+            .record-table th,
+            .record-table td {
+                padding: 8px 5px;
+                font-size: 12px;
+            }
+            
+            .record-title,
+            .prediction-title,
+            .period {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部信息栏 -->
+        <div class="header">
+            <div class="date" id="currentDate">白云</div>
+            <div class="income">来自@zfyy6</div>
+        </div>
+        
+        <!-- 当前开奖结果 -->
+        <div class="current-result" id="currentResult">
+            <!-- 动态加载 -->
+        </div>
+        
+        <!-- 下一期预测 -->
+        <div class="next-prediction" id="nextPrediction">
+            <!-- 动态加载 -->
+        </div>
+        
+        <!-- 预测结果记录 -->
+        <div class="record-container">
+            <div class="record-header">
+                <div class="record-title">预测结果记录（最新50期）</div>
+                <div class="accuracy" id="accuracy">正确率: 0%</div>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                正在加载数据...
+            </div>
+            
+            <table class="record-table" id="recordTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>期号</th>
+                        <th>时间</th>
+                        <th>开奖</th>
+                        <th>预测组合</th>
+                        <th>对错</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- 动态加载 -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- 底部信息 -->
+        <div class="footer">
+            <p>数据来源: pc28.help • 每3.5分钟一期 • 预测仅供参考</p>
+        </div>
+    </div>
+
+    <script>
+        // 设置当前日期
+        function setCurrentDate() {
+            const now = new Date();
+            const month = now.getMonth() + 1;
+            const day = now.getDate();
+            document.getElementById('currentDate').textContent = 
+                `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+        }
+        
+        // 定义组合类型
+        const combinations = {
+            "小单": [1, 3, 5, 7, 9, 11, 13],
+            "小双": [0, 2, 4, 6, 8, 10, 12],
+            "大单": [15, 17, 19, 21, 23, 25, 27],
+            "大双": [14, 16, 18, 20, 22, 24, 26]
+        };
+        
+        // 获取组合类型
+        function getCombinationType(sum) {
+            const isSmall = sum >= 0 && sum <= 13;
+            const isEven = sum % 2 === 0;
+            
+            if (isSmall && !isEven) return "小单";
+            if (isSmall && isEven) return "小双";
+            if (!isSmall && !isEven) return "大单";
+            if (!isSmall && isEven) return "大双";
+            return "小双"; // 默认
+        }
+        
+        // 计算预测结果
+        function calculatePrediction(lastSum, lastNumbers) {
+            // 步骤一: A + 27 + abc = S
+            const A = lastSum;
+            const abc = parseInt(lastNumbers.replace(/,/g, ''));
+            const S = A + 27 + abc;
+            
+            // 步骤二: S * 3.14 = X (不用小数点)
+            const X = Math.floor(S * 3.14);
+            
+            // 步骤三: X / A = Y (不要小数点)
+            const Y = A === 0 ? 0 : Math.floor(X / A);
+            
+            // 步骤四: X - Y * A = G
+            const G = X - Y * A;
+            
+            // 根据G值返回预测组合
+            return getCombinationType(G);
+        }
+        
+        // 判断预测是否正确
+        function checkPrediction(predicted, actual) {
+            const predictedType = predicted;
+            const actualType = getCombinationType(actual.sum);
+            
+            // 解析预测组合
+            const predictedSize = predictedType.includes("小") ? "小" : "大";
+            const predictedParity = predictedType.includes("单") ? "单" : "双";
+            
+            // 解析实际组合
+            const actualSize = actualType.includes("小") ? "小" : "大";
+            const actualParity = actualType.includes("单") ? "单" : "双";
+            
+            // 判断
+            if (predictedType === actualType) {
+                return "中组合";
+            } else if (predictedSize === actualSize && predictedParity !== actualParity) {
+                return "中大小";
+            } else if (predictedSize !== actualSize && predictedParity === actualParity) {
+                return "中单双";
+            } else {
+                return "错误";
+            }
+        }
+        
+        // 格式化时间
+        function formatTime(opentime) {
+            const date = new Date(opentime);
+            return date.getHours().toString().padStart(2, '0') + ':' + 
+                   date.getMinutes().toString().padStart(2, '0');
+        }
+        
+        // 获取下一期时间
+        function getNextTime(lastTime) {
+            const lastDate = new Date(lastTime);
+            // 每3.5分钟一期
+            const nextDate = new Date(lastDate.getTime() + 3.5 * 60 * 1000);
+            return nextDate.getHours().toString().padStart(2, '0') + ':' + 
+                   nextDate.getMinutes().toString().padStart(2, '0');
+        }
+        
+        // 获取特码
+        function getSpecialCode(predicted) {
+            // 根据预测组合随机返回一个该组合内的号码
+            const type = predicted;
+            const numbers = combinations[type];
+            return numbers[Math.floor(Math.random() * numbers.length)];
+        }
+        
+        // 显示最新开奖结果
+        function displayCurrentResult(data) {
+            if (!data || data.length === 0) return;
+            
+            const latest = data[0];
+            const sum = parseInt(latest.sum);
+            const numbers = latest.opennum;
+            const combination = getCombinationType(sum);
+            
+            const size = sum <= 13 ? "小" : "大";
+            const parity = sum % 2 === 0 ? "双" : "单";
+            
+            document.getElementById('currentResult').innerHTML = `
+                <div class="result-header">
+                    <div class="period">${latest.qihao}</div>
+                    <div class="result-time">${formatTime(latest.opentime)}</div>
+                </div>
+                <div class="numbers">${numbers.replace(/,/g, '+')}=${sum}</div>
+                <div class="result-tags">
+                    <div class="tag small">${size}</div>
+                    <div class="tag double">${parity}</div>
+                    <div class="tag">${combination}</div>
+                </div>
+                <div class="next-time">
+                    <div>开奖时间: ${formatTime(latest.opentime)}</div>
+                    <div>下一期: 1分41秒</div>
+                </div>
+            `;
+        }
+        
+        // 显示下一期预测
+        function displayNextPrediction(data) {
+            if (!data || data.length === 0) return;
+            
+            const latest = data[0];
+            
+            // 使用最新一期数据作为上一期，来预测下一期
+            const predicted = calculatePrediction(
+                parseInt(latest.sum), 
+                latest.opennum
+            );
+            
+            const nextNumber = parseInt(latest.qihao) + 1;
+            const nextTime = getNextTime(latest.opentime);
+            const specialCode = getSpecialCode(predicted);
+            
+            document.getElementById('nextPrediction').innerHTML = `
+                <div class="prediction-header">
+                    <div class="prediction-title">下一期预测</div>
+                    <div class="countdown">1分41秒</div>
+                </div>
+                <div class="prediction-content">
+                    <div class="prediction-period">${nextNumber}</div>
+                    <div class="prediction-combination">${predicted}</div>
+                    <div class="special-code">特码: ${specialCode}</div>
+                </div>
+            `;
+        }
+        
+        // 生成表格数据
+        async function generateTable() {
+            try {
+                // 从API获取51期数据，用于计算50期预测
+                const response = await fetch('https://pc28.help/kj.json?limit=51');
+                const data = await response.json();
+                
+                if (!data.data || data.data.length === 0) {
+                    throw new Error('没有获取到数据');
+                }
+                
+                // 假设API返回的数据第一个是最新的一期
+                const resultData = data.data;
+                
+                // 如果数据不足51期，则只计算能计算的期数
+                const total = Math.min(resultData.length, 51);
+                const displayData = resultData.slice(0, total); // 最新total期
+                
+                let correctCount = 0;
+                const tableBody = document.getElementById('tableBody');
+                tableBody.innerHTML = '';
+                
+                // 计算每期的预测和结果，我们只能计算到total-1期，因为最后一期没有上一期数据
+                // 从最新的开始（第0期）到第49期，共50期
+                for (let i = 0; i < Math.min(total - 1, 50); i++) {
+                    const current = displayData[i];
+                    const previous = displayData[i + 1];
+                    
+                    const sum = parseInt(current.sum);
+                    const predicted = calculatePrediction(
+                        parseInt(previous.sum), 
+                        previous.opennum
+                    );
+                    
+                    const result = checkPrediction(predicted, current);
+                    const isCorrect = result !== "错误";
+                    if (isCorrect) correctCount++;
+                    
+                    const row = document.createElement('tr');
+                    
+                    row.innerHTML = `
+                        <td class="period-cell">${current.qihao}</td>
+                        <td class="time-cell">${formatTime(current.opentime)}</td>
+                        <td class="result-cell">${current.opennum.replace(/,/g, '+')}=${current.sum}</td>
+                        <td class="prediction-cell">${predicted}</td>
+                        <td class="status-cell ${isCorrect ? 'correct' : 'wrong'}">${result}</td>
+                    `;
+                    
+                    tableBody.appendChild(row);
+                }
+                
+                // 计算正确率
+                const totalPredictions = Math.min(total - 1, 50);
+                const accuracy = totalPredictions > 0 ? 
+                    Math.round((correctCount / totalPredictions) * 100) : 0;
+                
+                document.getElementById('accuracy').textContent = `正确率: ${accuracy}%`;
+                
+                // 隐藏加载动画，显示表格
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('recordTable').style.display = 'table';
+                
+                return displayData;
+                
+            } catch (error) {
+                console.error('获取数据失败:', error);
+                document.getElementById('loading').innerHTML = 
+                    '<div style="color: #aaa;">数据加载失败，请刷新页面</div>';
+                return null;
+            }
+        }
+        
+        // 初始化
+        async function init() {
+            // 设置日期
+            setCurrentDate();
+            
+            // 生成表格数据，并获取到数据
+            const tableData = await generateTable();
+            
+            if (tableData && tableData.length > 0) {
+                // 显示当前开奖结果（最新一期）
+                displayCurrentResult([tableData[0]]);
+                
+                // 显示下一期预测
+                displayNextPrediction([tableData[0]]);
+            }
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', init);
+        
+        // 每30秒刷新一次数据
+        setInterval(async () => {
+            // 重新生成表格数据
+            await generateTable();
+            
+            // 获取最新一期数据
+            try {
+                const response = await fetch('https://pc28.help/kj.json?limit=1');
+                const data = await response.json();
+                
+                if (data.data && data.data.length > 0) {
+                    // 显示当前开奖结果（最新一期）
+                    displayCurrentResult(data.data);
+                    
+                    // 显示下一期预测
+                    displayNextPrediction(data.data);
+                }
+            } catch (error) {
+                console.error('获取最新数据失败:', error);
+            }
+        }, 30000);
+    </script>
+</body>
+</html>
